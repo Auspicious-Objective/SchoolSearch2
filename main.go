@@ -18,25 +18,9 @@ func getAPIKey() string {
 	if len(APIKey) > 0 {
 		return APIKey
 	} else {
-		keyPrompt := promptui.Prompt{
-			Label: "Enter US Department of Education API key:",
-			Validate: func(input string) error {
-				if input == "" {
-					return fmt.Errorf("API key cannot be empty")
-				}
-				return nil
-			},
-		}
-
-		// Run the prompt and capture the result
-		APIKeyValue, err := keyPrompt.Run()
-		if err != nil {
-			fmt.Fprintf(os.Stderr, "Prompt failed: %v\n", err)
-			os.Exit(1)
-		}
-
-		return APIKeyValue
+		APIKey = os.Getenv("SCHOOLSEARCHAPIKEY")
 	}
+	return APIKey
 }
 
 func getFileName() string {
